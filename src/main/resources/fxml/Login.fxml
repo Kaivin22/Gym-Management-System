@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.LoginController"
+            styleClass="root">
+    
+    <center>
+        <VBox alignment="CENTER" spacing="20" styleClass="login-container">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+            
+            <!-- Logo/Title -->
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="🏋️ GYM MANAGEMENT" styleClass="login-title">
+                    <font>
+                        <Font name="System Bold" size="32"/>
+                    </font>
+                </Label>
+                <Label text="Hệ thống Quản lý Phòng Gym" styleClass="login-subtitle">
+                    <font>
+                        <Font size="16"/>
+                    </font>
+                </Label>
+            </VBox>
+            
+            <Separator prefWidth="300"/>
+            
+            <!-- Login Form -->
+            <VBox spacing="15" alignment="CENTER">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Tên đăng nhập:" prefWidth="120" styleClass="form-label"/>
+                    <TextField fx:id="txtUsername" promptText="Nhập tên đăng nhập" 
+                               prefWidth="250" styleClass="form-input"/>
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Mật khẩu:" prefWidth="120" styleClass="form-label"/>
+                    <PasswordField fx:id="txtPassword" promptText="Nhập mật khẩu" 
+                                   prefWidth="250" styleClass="form-input"/>
+                </HBox>
+            </VBox>
+            
+            <!-- Buttons -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="Đăng nhập" onAction="#handleLogin" 
+                        styleClass="btn-primary" prefWidth="150">
+                    <font>
+                        <Font name="System Bold" size="14"/>
+                    </font>
+                </Button>
+            </HBox>
+            
+            <!-- Footer -->
+            <VBox alignment="CENTER" spacing="5">
+                <padding>
+                    <Insets top="20"/>
+                </padding>
+                <Label text="Thông tin đăng nhập mặc định:" styleClass="hint-text"/>
+                <Label text="Username: admin | Password: 123456" styleClass="hint-text-bold"/>
+            </VBox>
+        </VBox>
+    </center>
+    
+</BorderPane>

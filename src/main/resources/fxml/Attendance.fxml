@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.AttendanceController"
+            style="-fx-background-color: #f5f7fa;">
+    
+    <top>
+        <VBox style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 15 20;">
+                <Label text="✅ ĐIỂM DANH HỘI VIÊN" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblCurrentTime" text="00:00:00" 
+                       style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #3498db;"/>
+                <Button text="◄ Quay lại" onAction="#handleBack" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+            
+            <!-- Check-in Section -->
+            <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="CHECK-IN HỘI VIÊN" style="-fx-font-weight: bold; -fx-font-size: 18;"/>
+                <Separator/>
+                
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label text="Mã hội viên / SĐT:" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+                    <TextField fx:id="txtMemberSearch" promptText="Nhập mã HV hoặc số điện thoại" 
+                               prefWidth="300" onAction="#handleCheckIn"/>
+                    <Button text="✔️ CHECK-IN" onAction="#handleCheckIn" 
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16;" 
+                            prefWidth="150" prefHeight="40"/>
+                </HBox>
+                
+                <!-- Member Info Display -->
+                <HBox fx:id="pnlMemberInfo" spacing="20" style="-fx-background-color: #ecf0f1; -fx-padding: 15; -fx-background-radius: 5;" visible="false">
+                    <VBox spacing="5">
+                        <Label text="Thông tin hội viên:" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="lblMemberName" text="Họ tên: ..." style="-fx-font-size: 14;"/>
+                        <Label fx:id="lblMemberCode" text="Mã HV: ..." style="-fx-font-size: 14;"/>
+                        <Label fx:id="lblMemberPhone" text="SĐT: ..." style="-fx-font-size: 14;"/>
+                    </VBox>
+                    <Separator orientation="VERTICAL"/>
+                    <VBox spacing="5">
+                        <Label text="Gói tập hiện tại:" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="lblPackageName" text="Gói: ..." style="-fx-font-size: 14;"/>
+                        <Label fx:id="lblPackageExpiry" text="Hết hạn: ..." style="-fx-font-size: 14;"/>
+                        <Label fx:id="lblPackageStatus" text="Trạng thái: ..." style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <!-- Today's Attendance -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="LƯỢT ĐIỂM DANH HÔM NAY" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                    <Label fx:id="lblTodayCount" text="Tổng: 0 lượt" 
+                           style="-fx-font-size: 14; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🔄 Làm mới" onAction="#handleRefresh" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+                </HBox>
+                <Separator/>
+                
+                <TableView fx:id="tblAttendance" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colMemberCode" text="Mã HV" prefWidth="100"/>
+                        <TableColumn fx:id="colMemberName" text="Họ tên" prefWidth="180"/>
+                        <TableColumn fx:id="colCheckInTime" text="Giờ vào" prefWidth="120"/>
+                        <TableColumn fx:id="colCheckOutTime" text="Giờ ra" prefWidth="120"/>
+                        <TableColumn fx:id="colDuration" text="Thời gian (phút)" prefWidth="120"/>
+                        <TableColumn fx:id="colStatus" text="Trạng thái" prefWidth="100"/>
+                        <TableColumn fx:id="colActions" text="Thao tác" prefWidth="150"/>
+                    </columns>
+                </TableView>
+            </VBox>
+            
+        </VBox>
+    </center>
+    
+</BorderPane>

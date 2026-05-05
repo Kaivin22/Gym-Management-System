@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.DashboardController">
+    
+    <top>
+        <VBox style="-fx-background-color: #3498db; -fx-padding: 20;">
+            <Label text="🏋️ DASHBOARD - HỆ THỐNG QUẢN LÝ PHÒNG GYM" 
+                   style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;"/>
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="10"/>
+                </padding>
+                <Label fx:id="lblWelcome" text="Xin chào!" 
+                       style="-fx-text-fill: white; -fx-font-size: 16;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Đăng xuất" onAction="#handleLogout" 
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #ecf0f1;">
+            <VBox spacing="20" alignment="CENTER">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+                
+                <Label text="THỐNG KÊ TỔNG QUAN" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+                
+                <!-- Row 1: Basic Stats -->
+                <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="200"/>
+                        <ColumnConstraints prefWidth="200"/>
+                        <ColumnConstraints prefWidth="200"/>
+                        <ColumnConstraints prefWidth="200"/>
+                    </columnConstraints>
+                    
+                    <!-- Card 1 -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" 
+                          style="-fx-background-color: #2ecc71; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Hội viên hoạt động" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblActiveMembers" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 2 -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          style="-fx-background-color: #e67e22; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Hội viên hết hạn" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblExpiredMembers" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 3 -->
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          style="-fx-background-color: #3498db; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Gói tập hoạt động" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblActiveRegistrations" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 4 -->
+                    <VBox GridPane.columnIndex="3" GridPane.rowIndex="0"
+                          style="-fx-background-color: #9b59b6; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Doanh thu tháng này" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblRevenueThisMonth" text="0 ₫" 
+                               style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Row 2 -->
+                    <!-- Card 5 -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="1"
+                          style="-fx-background-color: #1abc9c; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Điểm danh hôm nay" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblAttendanceToday" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 6 -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1"
+                          style="-fx-background-color: #e74c3c; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Gói sắp hết hạn" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblExpiringRegistrations" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 7: THÊM - Khuyến mãi đang hoạt động -->
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="1"
+                          style="-fx-background-color: #f39c12; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Khuyến mãi đang chạy" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblActivePromotions" text="0" 
+                               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Card 8: THÊM - Tổng giảm giá -->
+                    <VBox GridPane.columnIndex="3" GridPane.rowIndex="1"
+                          style="-fx-background-color: #34495e; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);">
+                        <Label text="Tổng giảm giá" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                        <Label fx:id="lblTotalDiscountGiven" text="0 ₫" 
+                               style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;">
+                            <padding><Insets top="5"/></padding>
+                        </Label>
+                    </VBox>
+                </GridPane>
+                
+                <Separator prefWidth="900"/>
+                
+                <!-- Row 3: Biểu đồ mini -->
+                <GridPane hgap="20" vgap="20" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="400"/>
+                        <ColumnConstraints prefWidth="500"/>
+                    </columnConstraints>
+                    
+                    <!-- Pie Chart -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                        <Label text="📊 Phân bố gói tập" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                        <PieChart fx:id="pieChartPackages" prefHeight="250" prefWidth="350"/>
+                    </VBox>
+                    
+                    <!-- Bar Chart -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                        <Label text="📈 Doanh thu 6 tháng gần nhất" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                        <BarChart fx:id="barChartMonthly" prefHeight="250" prefWidth="450">
+                            <xAxis>
+                                <CategoryAxis label="Tháng"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Triệu VNĐ"/>
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                </GridPane>
+                
+                <Separator prefWidth="900"/>
+                
+                <!-- Row 4: Thông tin bổ sung -->
+                <GridPane hgap="20" vgap="15" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="300"/>
+                        <ColumnConstraints prefWidth="300"/>
+                        <ColumnConstraints prefWidth="300"/>
+                    </columnConstraints>
+                    
+                    <!-- Top Package -->
+                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                        <Label text="🥇 Gói tập phổ biến nhất" style="-fx-font-weight: bold;"/>
+                        <Label fx:id="lblTopPackage" text="Đang tải..." 
+                               style="-fx-font-size: 18; -fx-text-fill: #e74c3c; -fx-font-weight: bold;">
+                            <padding><Insets top="10"/></padding>
+                        </Label>
+                    </VBox>
+                    
+                    <!-- Quick Info -->
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                        <Label text="⚡ Thông tin nhanh" style="-fx-font-weight: bold;"/>
+                        <VBox spacing="8" style="-fx-padding: 10 0 0 0;">
+                            <HBox>
+                                <Label text="Hội viên mới tháng:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="12" style="-fx-font-weight: bold;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Đăng ký mới:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="8" style="-fx-font-weight: bold;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Doanh thu trung bình:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="15.2 tr" style="-fx-font-weight: bold;"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                    
+                    <!-- System Status -->
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0"
+                          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                        <Label text="🟢 Trạng thái hệ thống" style="-fx-font-weight: bold;"/>
+                        <VBox spacing="8" style="-fx-padding: 10 0 0 0;">
+                            <HBox>
+                                <Label text="Database:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="Online" style="-fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Hibernate:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="Connected" style="-fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Last Backup:" style="-fx-font-size: 12;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="Hôm nay" style="-fx-font-weight: bold;"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </GridPane>
+                
+                <Separator prefWidth="600"/>
+                
+                <Label text="TRUY CẬP NHANH" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+                
+                <!-- Navigation Buttons - THÊM NÚT PROMOTION -->
+                <GridPane hgap="15" vgap="15" alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="180"/>
+                        <ColumnConstraints prefWidth="180"/>
+                        <ColumnConstraints prefWidth="180"/>
+                        <ColumnConstraints prefWidth="180"/>
+                    </columnConstraints>
+                    
+                    <Button text="👥 Quản lý Hội viên" onAction="#handleMembers" 
+                            GridPane.columnIndex="0" GridPane.rowIndex="0"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #3498db; -fx-text-fill: white;"/>
+                    
+                    <Button text="📦 Quản lý Gói tập" onAction="#handlePackages" 
+                            GridPane.columnIndex="1" GridPane.rowIndex="0"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+                    
+                    <Button text="📝 Đăng ký gói" onAction="#handleRegistrations" 
+                            GridPane.columnIndex="2" GridPane.rowIndex="0"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #9b59b6; -fx-text-fill: white;"/>
+                    
+                    <Button text="✅ Điểm danh" onAction="#handleAttendance" 
+                            GridPane.columnIndex="3" GridPane.rowIndex="0"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                    
+                    <!-- Row 2 -->
+                    <Button text="🎁 Khuyến mãi" onAction="#handlePromotions" 
+                            GridPane.columnIndex="0" GridPane.rowIndex="1"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    
+                    <Button text="📈 Báo cáo" onAction="#handleReports"
+                            GridPane.columnIndex="1" GridPane.rowIndex="1"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-font-weight: bold; -fx-background-color: #34495e; -fx-text-fill: white;"/>
+                    
+                    <Button text="🔄 Làm mới" onAction="#handleRefresh"
+                            GridPane.columnIndex="2" GridPane.rowIndex="1"
+                            prefHeight="50"
+                            style="-fx-font-size: 14; -fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                    
+                    
+                </GridPane>
+                
+                <!-- Footer Note -->
+                <Label text="📊 Dashboard được cập nhật lần cuối: Hôm nay" 
+                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;"/>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

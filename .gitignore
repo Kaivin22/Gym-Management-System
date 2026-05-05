@@ -1,0 +1,12 @@
+# Java/Eclipse/Maven gitignore
+target/
+.settings/
+.classpath
+.project
+*.class
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+bin/

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.PackageController"
+            style="-fx-background-color: #f5f7fa;">
+    
+    <top>
+        <VBox style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 15 20;">
+                <Label text="📦 QUẢN LÝ GÓI TẬP" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="◄ Quay lại Dashboard" onAction="#handleBack" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <HBox spacing="20" style="-fx-padding: 20;">
+            
+            <!-- Table Section -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                <Label text="DANH SÁCH GÓI TẬP" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                <Separator/>
+                
+                <TableView fx:id="tblPackages" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colPackageCode" text="Mã gói" prefWidth="100"/>
+                        <TableColumn fx:id="colPackageName" text="Tên gói" prefWidth="200"/>
+                        <TableColumn fx:id="colDuration" text="Thời hạn" prefWidth="120"/>
+                        <TableColumn fx:id="colPrice" text="Giá gốc" prefWidth="120"/>
+                        <TableColumn fx:id="colDiscount" text="Giảm giá (%)" prefWidth="100"/>
+                        <TableColumn fx:id="colFinalPrice" text="Giá cuối" prefWidth="120"/>
+                        <TableColumn fx:id="colIsActive" text="Trạng thái" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+            
+            <!-- Form Section -->
+            <VBox spacing="15" prefWidth="400" 
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+                <Label text="THÔNG TIN GÓI TẬP" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                <Separator/>
+                
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                    <VBox spacing="15">
+                        <VBox spacing="5">
+                            <Label text="Tên gói *" style="-fx-font-weight: bold;"/>
+                            <TextField fx:id="txtPackageName" promptText="VD: Gói 3 tháng"/>
+                        </VBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Mô tả" style="-fx-font-weight: bold;"/>
+                            <TextArea fx:id="txtDescription" promptText="Mô tả chi tiết gói tập" 
+                                      prefRowCount="3" wrapText="true"/>
+                        </VBox>
+                        
+                        <HBox spacing="10">
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Số tháng *" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtDurationMonths" promptText="VD: 3"/>
+                            </VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Số ngày *" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtDurationDays" promptText="VD: 90"/>
+                            </VBox>
+                        </HBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Giá gốc (VNĐ) *" style="-fx-font-weight: bold;"/>
+                            <TextField fx:id="txtPrice" promptText="VD: 1500000"/>
+                        </VBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Giảm giá (%)" style="-fx-font-weight: bold;"/>
+                            <TextField fx:id="txtDiscountPercent" promptText="VD: 10" text="0"/>
+                        </VBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Số ngày đóng băng tối đa" style="-fx-font-weight: bold;"/>
+                            <TextField fx:id="txtMaxFreezeDays" promptText="VD: 7" text="0"/>
+                        </VBox>
+                        
+                        <VBox spacing="5">
+                            <Label text="Tính năng (mỗi dòng 1 tính năng)" style="-fx-font-weight: bold;"/>
+                            <TextArea fx:id="txtFeatures" promptText="VD:
+Tập gym cơ bản
+Phòng tập máy
+Tủ khóa miễn phí" 
+                                      prefRowCount="5" wrapText="true"/>
+                        </VBox>
+                        
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Trạng thái:" style="-fx-font-weight: bold;"/>
+                            <CheckBox fx:id="chkIsActive" text="Đang hoạt động" selected="true"/>
+                        </HBox>
+                    </VBox>
+                </ScrollPane>
+                
+                <Separator/>
+                
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="➕ Thêm mới" onAction="#handleNew" 
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="100"/>
+                    <Button text="💾 Lưu" onAction="#handleSave" 
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="100"/>
+                    <Button text="🗑️ Xóa" onAction="#handleDelete" 
+                            style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" 
+                            prefWidth="100"/>
+                </HBox>
+                
+                <Label text="(*) Trường bắt buộc" style="-fx-text-fill: #e74c3c; -fx-font-size: 12;"/>
+            </VBox>
+        </HBox>
+    </center>
+    
+</BorderPane>

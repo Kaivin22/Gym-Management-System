@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.ReportController"
+            style="-fx-background-color: #f5f7fa;">
+    
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 15 20;">
+                <Label text="📊 BÁO CÁO CHI TIẾT" 
+                       style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Làm mới" onAction="#handleRefresh" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
+                <Button text="◄ Quay lại Dashboard" onAction="#handleBack" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" 
+                    style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="20" style="-fx-padding: 20;">
+                
+                <!-- TAB PANE WITH 5 REPORTS -->
+                <TabPane style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                    
+                    <!-- ==================== TAB 1: REVENUE BY PACKAGE ==================== -->
+                    <Tab text="💰 Doanh thu theo gói" closable="false">
+                        <VBox spacing="15" style="-fx-padding: 20;">
+                            <!-- Header -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <Label text="DOANH THU THEO GÓI TẬP" 
+                                       style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #2c3e50;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                 
+                            </HBox>
+                            <Separator/>
+                            
+                            <!-- Table -->
+                            <TableView fx:id="tblRevenueByPackage" prefHeight="500">
+                                <columns>
+                                    <TableColumn fx:id="colPackage" text="Gói tập" prefWidth="350"/>
+                                    <TableColumn fx:id="colRegistrationCount" text="Số lượt ĐK" prefWidth="150"/>
+                                    <TableColumn fx:id="colPackageRevenue" text="Doanh thu" prefWidth="200"/>
+                                    <TableColumn fx:id="colPercentage" text="Tỷ lệ (%)" prefWidth="150"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+                    
+                    <!-- ==================== TAB 2: TOP MEMBERS ==================== -->
+                    <Tab text="👥 Top hội viên" closable="false">
+                        <VBox spacing="15" style="-fx-padding: 20;">
+                            <!-- Header -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <Label text="TOP HỘI VIÊN TÍCH CỰC" 
+                                       style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #2c3e50;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <ComboBox fx:id="cboTopType" onAction="#handleTopTypeChange" 
+                                          prefWidth="200" style="-fx-font-size: 14;"/>
+                               
+                            </HBox>
+                            <Separator/>
+                            
+                            <!-- Table -->
+                            <TableView fx:id="tblTopMembers" prefHeight="500">
+                                <columns>
+                                    <TableColumn fx:id="colRank" text="Hạng" prefWidth="80"/>
+                                    <TableColumn fx:id="colTopMemberCode" text="Mã HV" prefWidth="120"/>
+                                    <TableColumn fx:id="colTopMemberName" text="Họ tên" prefWidth="280"/>
+                                    <TableColumn fx:id="colTopValue" text="Giá trị" prefWidth="150"/>
+                                    <TableColumn fx:id="colTopDetail" text="Chi tiết" prefWidth="250"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+                    
+                    <!-- ==================== TAB 3: MONTHLY STATISTICS ==================== -->
+                    <Tab text="📅 Thống kê theo tháng" closable="false">
+                        <VBox spacing="15" style="-fx-padding: 20;">
+                            <!-- Header -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <Label text="THỐNG KÊ THEO THÁNG" 
+                                       style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #2c3e50;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="Năm:" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                                <ComboBox fx:id="cboYear" onAction="#handleYearChange" 
+                                          prefWidth="120" style="-fx-font-size: 14;"/>
+                                
+                            </HBox>
+                            <Separator/>
+                            
+                            <!-- Table -->
+                            <TableView fx:id="tblMonthlyStats" prefHeight="500">
+                                <columns>
+                                    <TableColumn fx:id="colMonth" text="Tháng" prefWidth="150"/>
+                                    <TableColumn fx:id="colNewMembers" text="HV mới" prefWidth="120"/>
+                                    <TableColumn fx:id="colNewRegistrations" text="ĐK mới" prefWidth="120"/>
+                                    <TableColumn fx:id="colMonthlyRevenue" text="Doanh thu" prefWidth="220"/>
+                                    <TableColumn fx:id="colMonthlyAttendance" text="Lượt điểm danh" prefWidth="170"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+                    
+                    <!-- ==================== TAB 4: EXPIRING REGISTRATIONS ==================== -->
+                    <Tab text="⚠️ Gói sắp hết hạn" closable="false">
+                        <VBox spacing="15" style="-fx-padding: 20;">
+                            <!-- Header -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <Label text="CÁC GÓI SẮP HẾT HẠN" 
+                                       style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #e74c3c;"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label text="Trong vòng:" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                                <ComboBox fx:id="cboDaysFilter" onAction="#handleDaysFilterChange" 
+                                          prefWidth="120" style="-fx-font-size: 14;"/>
+                                
+                            </HBox>
+                            <Separator/>
+                            
+                            <!-- Table -->
+                            <TableView fx:id="tblExpiringRegistrations" prefHeight="500">
+                                <columns>
+                                    <TableColumn fx:id="colExpiringMemberCode" text="Mã HV" prefWidth="100"/>
+                                    <TableColumn fx:id="colExpiringMemberName" text="Họ tên" prefWidth="220"/>
+                                    <TableColumn fx:id="colExpiringPhone" text="SĐT" prefWidth="130"/>
+                                    <TableColumn fx:id="colExpiringPackage" text="Gói tập" prefWidth="200"/>
+                                    <TableColumn fx:id="colExpiringEndDate" text="Ngày hết hạn" prefWidth="140"/>
+                                    <TableColumn fx:id="colExpiringDaysLeft" text="Còn lại" prefWidth="110"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
+                    </Tab>
+                    
+                    <!-- ==================== TAB 5: REVENUE CHART ==================== -->
+                    <Tab text="📈 Biểu đồ doanh thu" closable="false">
+                        <VBox spacing="15" style="-fx-padding: 20;">
+                            <!-- Header -->
+                            <Label text="DOANH THU 30 NGÀY GẦN NHẤT" 
+                                   style="-fx-font-weight: bold; -fx-font-size: 18; -fx-text-fill: #2c3e50;"/>
+                            <Separator/>
+                            
+                            <!-- Line Chart -->
+                            <LineChart fx:id="lineRevenue" prefHeight="550" 
+                                       legendVisible="true" animated="true"
+                                       style="-fx-background-color: white;">
+                                <xAxis>
+                                    <CategoryAxis label="Ngày" side="BOTTOM" 
+                                                  style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis label="Doanh thu (VNĐ)" side="LEFT" 
+                                                style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+                                </yAxis>
+                            </LineChart>
+                        </VBox>
+                    </Tab>
+                    
+                </TabPane>
+                
+                <!-- FOOTER INFO -->
+                <HBox alignment="CENTER" spacing="20" 
+                      style="-fx-padding: 15; -fx-background-color: #ecf0f1; -fx-background-radius: 5;">
+                    <Label text="💡 Mẹo: Chọn tab để xem báo cáo chi tiết • Nhấn 'Xuất CSV' để tải về" 
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;"/>
+                </HBox>
+                
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+</BorderPane>

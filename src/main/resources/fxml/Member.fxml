@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.gym.controller.MemberController"
+            style="-fx-background-color: #f5f7fa;">
+    
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+            <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 15 20;">
+                <Label text="👥 QUẢN LÝ HỘI VIÊN" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="◄ Quay lại Dashboard" onAction="#handleBack" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="20" style="-fx-padding: 20;">
+            
+            <!-- Search Bar -->
+            <HBox spacing="15" alignment="CENTER_LEFT" 
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                <Label text="🔍 Tìm kiếm:" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+                <TextField fx:id="txtSearch" promptText="Nhập mã HV, tên, SĐT, email..." 
+                           prefWidth="400" onAction="#handleSearch"/>
+                <Button text="Tìm kiếm" onAction="#handleSearch" 
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button text="Làm mới" onAction="#handleRefresh" 
+                        style="-fx-background-color: #95a5a6; -fx-text-fill: white;"/>
+            </HBox>
+            
+            <!-- Main Content -->
+            <HBox spacing="20" VBox.vgrow="ALWAYS">
+                
+                <!-- Table Section -->
+                <VBox spacing="10" HBox.hgrow="ALWAYS" 
+                      style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+                    <Label text="DANH SÁCH HỘI VIÊN" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                    <Separator/>
+                    
+                    <TableView fx:id="tblMembers" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colMemberCode" text="Mã HV" prefWidth="100"/>
+                            <TableColumn fx:id="colFullName" text="Họ tên" prefWidth="180"/>
+                            <TableColumn fx:id="colGender" text="Giới tính" prefWidth="80"/>
+                            <TableColumn fx:id="colPhone" text="Số ĐT" prefWidth="120"/>
+                            <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                            <TableColumn fx:id="colStatus" text="Trạng thái" prefWidth="100"/>
+                            <TableColumn fx:id="colJoinDate" text="Ngày tham gia" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+                
+                <!-- Form Section -->
+                <VBox spacing="15" prefWidth="400" 
+                      style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text="THÔNG TIN HỘI VIÊN" style="-fx-font-weight: bold; -fx-font-size: 16;"/>
+                    <Separator/>
+                    
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                        <VBox spacing="15">
+                            <!-- Họ tên -->
+                            <VBox spacing="5">
+                                <Label text="Họ và tên *" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtFullName" promptText="Nhập họ và tên"/>
+                            </VBox>
+                            
+                            <!-- Giới tính -->
+                            <VBox spacing="5">
+                                <Label text="Giới tính *" style="-fx-font-weight: bold;"/>
+                                <ComboBox fx:id="cboGender" prefWidth="200" promptText="Chọn giới tính"/>
+                            </VBox>
+                            
+                            <!-- Ngày sinh -->
+                            <VBox spacing="5">
+                                <Label text="Ngày sinh" style="-fx-font-weight: bold;"/>
+                                <DatePicker fx:id="dpDateOfBirth" promptText="Chọn ngày sinh"/>
+                            </VBox>
+                            
+                            <!-- Số điện thoại -->
+                            <VBox spacing="5">
+                                <Label text="Số điện thoại *" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtPhone" promptText="Nhập số điện thoại"/>
+                            </VBox>
+                            
+                            <!-- Email -->
+                            <VBox spacing="5">
+                                <Label text="Email" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtEmail" promptText="Nhập email"/>
+                            </VBox>
+                            
+                            <!-- Địa chỉ -->
+                            <VBox spacing="5">
+                                <Label text="Địa chỉ" style="-fx-font-weight: bold;"/>
+                                <TextArea fx:id="txtAddress" promptText="Nhập địa chỉ" 
+                                          prefRowCount="2" wrapText="true"/>
+                            </VBox>
+                            
+                            <!-- CMND/CCCD -->
+                            <VBox spacing="5">
+                                <Label text="CMND/CCCD" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtIdCard" promptText="Nhập số CMND/CCCD"/>
+                            </VBox>
+                            
+                            <!-- Người liên hệ khẩn cấp -->
+                            <VBox spacing="5">
+                                <Label text="Người liên hệ khẩn cấp" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtEmergencyContact" promptText="Tên người liên hệ"/>
+                            </VBox>
+                            
+                            <!-- SĐT khẩn cấp -->
+                            <VBox spacing="5">
+                                <Label text="SĐT khẩn cấp" style="-fx-font-weight: bold;"/>
+                                <TextField fx:id="txtEmergencyPhone" promptText="Số điện thoại"/>
+                            </VBox>
+                            
+                            <!-- Ghi chú sức khỏe -->
+                            <VBox spacing="5">
+                                <Label text="Ghi chú sức khỏe" style="-fx-font-weight: bold;"/>
+                                <TextArea fx:id="txtHealthNotes" promptText="Các vấn đề sức khỏe cần lưu ý" 
+                                          prefRowCount="3" wrapText="true"/>
+                            </VBox>
+                            
+                            <!-- Ngày tham gia -->
+                            <VBox spacing="5">
+                                <Label text="Ngày tham gia *" style="-fx-font-weight: bold;"/>
+                                <DatePicker fx:id="dpJoinDate" promptText="Chọn ngày"/>
+                            </VBox>
+                            
+                            <!-- Trạng thái -->
+                            <VBox spacing="5">
+                                <Label text="Trạng thái" style="-fx-font-weight: bold;"/>
+                                <ComboBox fx:id="cboStatus" prefWidth="200"/>
+                            </VBox>
+                            
+                        </VBox>
+                    </ScrollPane>
+                    
+                    <Separator/>
+                    
+                    <!-- Action Buttons -->
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="➕ Thêm mới" onAction="#handleNew" 
+                                style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold;" 
+                                prefWidth="100"/>
+                        <Button text="💾 Lưu" onAction="#handleSave" 
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" 
+                                prefWidth="100"/>
+                        <Button text="🗑️ Xóa" onAction="#handleDelete" 
+                                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" 
+                                prefWidth="100"/>
+                    </HBox>
+                    
+                    <Label text="(*) Trường bắt buộc" style="-fx-text-fill: #e74c3c; -fx-font-size: 12;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+    
+</BorderPane>
